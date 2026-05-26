@@ -1,122 +1,205 @@
-# DemoQA Automated Testing Project 🧪
 
-**Course:** SWEG 5022 - Software Verification, Validation and Testing (Assignment II)  
-**Application Tested:** https://demoqa.com  
-**Framework:** Selenium WebDriver (Python) + Pytest  
-**Repository:** https://github.com/BeimnetTadesse/DemoQA_Testing_Project  
+# DemoQA Test Automation Framework
 
----
+## 📌 Project Overview
 
-## 📌 Project Description
+This project is an automated testing framework developed for the **DemoQA Book Store application** as part of the SVVT course (Software Verification, Validation and Testing).
 
-This project demonstrates automated functional testing of a web application using Selenium WebDriver and Pytest.
+It demonstrates a hybrid automation approach using:
 
-This repository contains the automated test suite for the SVVT Individual Software Testing Project. The purpose is to apply software testing techniques such as **Equivalence Partitioning**, **Boundary Value Analysis**, and **Decision Table Testing** on the DemoQA practice automation website.
+* UI Testing with Selenium WebDriver
+* API Testing with Requests + Pytest
+* Page Object Model (POM) design pattern
 
-The test cases cover core modules including **Text Box** and **Practice Form**, ensuring functional validation of user input handling and form submission behavior.
+The framework validates both frontend and backend functionality of the DemoQA Book Store system.
 
 ---
 
-## 🧪 Test Coverage Summary
+## 🎯 Objectives
 
-| Test Case | Module        | Description                         | Result            |
-|-----------|--------------|-------------------------------------|------------------|
-| TC01      | Text Box      | Valid name + email input            | ✅ PASS          |
-| TC02      | Text Box      | Invalid email format validation     | ✅ PASS          |
-| TC03      | Text Box      | Empty submission                    | ✅ PASS (manual) |
-| TC04      | Practice Form | Complete valid submission           | ✅ PASS          |
-| TC05      | Practice Form | Missing First Name validation       | ✅ PASS (manual) |
-| TC06      | Practice Form | Mobile number input validation      | ✅ PASS          |
-
-**Pass Rate:** 100% (6/6 tests passed)
+* Automate UI testing for login and book features
+* Validate API endpoints for authentication and book operations
+* Ensure functional correctness using structured test cases
+* Apply Page Object Model for scalable automation design
+* Combine UI + API validation for better test reliability
 
 ---
 
-## 🛠️ Technology Stack
+## ⚙️ Tech Stack
 
-| Tool | Version | Purpose |
-|------|---------|---------|
-| Python | 3.11+ | Programming language |
-| Selenium WebDriver | 4.43 | Browser automation |
-| Pytest | 7.4+ | Test framework |
-| WebDriver Manager | 4.0+ | Driver management |
+* Python 3.11
+* Selenium WebDriver
+* Pytest
+* Requests
+* WebDriver Manager
 
 ---
 
-## 🚀 Setup & Installation
+## 📁 Project Structure
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/BeimnetTadesse/DemoQA_Testing_Project.git
-cd DemoQA_Testing_Project
+```
+pages/        → Page Object Models (Login, Profile, Books)
+tests/        → UI and API test cases
+utils/        → Configuration (URLs, credentials, constants)
+pytest.ini    → Pytest configuration
 ```
 
-### 2. Create virtual environment
-```bash
-python3 -m venv venv
+---
+
+## 🧪 Test Coverage
+
+### 🔵 UI Tests (Selenium)
+
+#### Login Module (4 Tests)
+
+Located in:
+
+```
+tests/test_login.py
 ```
 
-### 3. Activate environment
+Covered Scenarios:
 
-**Mac/Linux:**
-```bash
-source venv/bin/activate
+* Valid login redirects to profile page
+* Invalid login shows error message
+* Empty credentials handling
+* Special character login behavior
+
+---
+
+#### Books Module (4 Tests)
+
+Located in:
+
+```
+tests/test_books.py
 ```
 
-**Windows:**
-```bash
-venv\Scripts\activate
+Covered Scenarios:
+
+* Search existing book
+* Search non-existing book
+* View book details
+* Add / remove book flow (UI-based)
+
+---
+
+### 🟢 API Tests (Requests + Pytest)
+
+#### API Module (7 Tests)
+
+Located in:
+
+```
+tests/test_api.py
 ```
 
-### 4. Install dependencies
+Covered Scenarios:
+
+* Generate authentication token
+* Authorized user check
+* Get user details
+* Add book to collection
+* Get user books
+* Delete book from collection
+* Negative login validation
+
+---
+
+## 📊 Test Summary
+
+| Category         | Total Tests | Passed | Failed | Status     |
+| ---------------- | ----------- | ------ | ------ | ---------- |
+| UI Tests (Login) | 4           | 4      | 0      | ✅ Pass     |
+| UI Tests (Books) | 4           | 3      | 1      | ⚠️ Partial |
+| API Tests        | 7           | 7      | 0      | ✅ Pass     |
+
+### **Total Tests: 15**
+
+### **Overall Pass Rate: ~93.3%**
+
+---
+
+## 🚀 How to Run Tests
+
+### Install dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-## ▶️ Running Tests
-
 ### Run all tests
+
 ```bash
-pytest tests/test_demoqa.py -v
+pytest -v
 ```
+
+---
+
+### Run UI tests only
+
+```bash
+pytest tests/test_login.py -v
+pytest tests/test_books.py -v
+```
+
+---
+
+### Run API tests only
+
+```bash
+pytest tests/test_api.py -v
+```
+
+---
 
 ### Generate HTML report
+
 ```bash
-pytest tests/test_demoqa.py --html=report.html --self-contained-html
+pytest --html=reports/report.html
 ```
 
 ---
 
-## 📂 Repository Structure
+## ⚠️ Known Issues
 
-```
-DemoQA_Testing_Project/
-├── tests/
-│   └── test_demoqa.py
-├── requirements.txt
-├── report.html
-└── README.md
-```
+* DemoQA is a public sandbox and may behave inconsistently
+* UI add/remove book flow may fail due to session/localStorage issues
+* Some UI state updates require manual refresh
+* API tests remain the most stable validation layer
+
+These are environment limitations, not framework defects.
 
 ---
 
-## 📋 Test Design Techniques Applied
+## 🧠 Key Design Decisions
 
-| Technique                | Application                                 |
-|--------------------------|---------------------------------------------|
-| Equivalence Partitioning | Email validation (valid vs invalid formats) |
-| Boundary Value Analysis  | Mobile number input validation              |
-| Decision Table Testing   | Form submission rules                       |
+* Page Object Model used for maintainability
+* Explicit waits used for UI stability
+* Hybrid UI + API testing approach for reliability
+* API layer used as fallback validation for unstable UI behavior
+
+---
+
+## 📌 Author
+
+**Beimnet Tadesse**
+GitHub: [https://github.com/BeimnetTadesse](https://github.com/BeimnetTadesse)
 
 ---
 
-## 👤 Author
+## 🏁 Conclusion
 
-**Beimnet Tadesse**  
-FTP 0217/15  
-SWEG 5022 - SVVT Assignment II  
-Date: April 23, 2026  
+This project demonstrates a complete automation testing framework including:
+
+* UI automation testing (Login + Books)
+* API automation testing
+* Structured test design using Pytest
+* Real-world QA engineering practices
+
+It validates both frontend and backend behavior of the DemoQA Book Store application.
 
 ---
+ 
